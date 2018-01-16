@@ -35,3 +35,10 @@ d:\documents\users\sivanrej\Documents\reversi\Game\Game\bin\Debug\ClassLibrary1.
 d:\documents\users\sivanrej\Documents\reversi\Game\Game\obj\Debug\Game.csprojResolveAssemblyReference.cache
 d:\documents\users\sivanrej\Documents\reversi\Game\Game\obj\Debug\Game.exe
 d:\documents\users\sivanrej\Documents\reversi\Game\Game\obj\Debug\Game.pdb
+d:\documents\users\sivanrej\Documents\GitHub\ReversiGame\Game\bin\Debug\Game.exe.config
+d:\documents\users\sivanrej\Documents\GitHub\ReversiGame\Game\bin\Debug\Game.exe
+d:\documents\users\sivanrej\Documents\GitHub\ReversiGame\Game\bin\Debug\Game.pdb
+d:\documents\users\sivanrej\Documents\GitHub\ReversiGame\Game\bin\Debug\ClassLibrary1.dll
+d:\documents\users\sivanrej\Documents\GitHub\ReversiGame\Game\obj\Debug\Game.csprojResolveAssemblyReference.cache
+d:\documents\users\sivanrej\Documents\GitHub\ReversiGame\Game\obj\Debug\Game.exe
+d:\documents\users\sivanrej\Documents\GitHub\ReversiGame\Game\obj\Debug\Game.pdb

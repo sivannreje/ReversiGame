@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    public class Player3 : Player
+    public class Player4 : Player
     {
         public void getPlayers              // players ids
         (
@@ -33,7 +33,7 @@ namespace Game
             foreach (Tuple<int, int> move in legalMoves)
             {
                 Board state = getState(move, board, playerChar);
-                double score = AlphaBeta(state, 1, Double.NegativeInfinity, Double.PositiveInfinity, playerChar);
+                double score = AlphaBeta(state, 2, Double.NegativeInfinity, Double.PositiveInfinity, playerChar);
                 if (score > maxScore)
                 {
                     maxScore = score;
@@ -48,14 +48,14 @@ namespace Game
             double v = 0;
             if (depth == 0 || board.isTheGameEnded())
             {
-                return HeuristicValue(board, playerChar);
+                return scoreValue(board, playerChar);
             }
-            if (playerChar == '2')
+            if (playerChar == '1')
             {
                 v = Double.NegativeInfinity;
                 foreach (Board child in getChildrenOfState(board, playerChar))
                 {
-                    v = Math.Max(v, AlphaBeta(child, depth - 1, a, b, '1'));
+                    v = Math.Max(v, AlphaBeta(child, depth - 1, a, b, '2'));
                     a = Math.Max(a, v);
                     if (b <= a)
                     {
@@ -69,7 +69,7 @@ namespace Game
                 v = Double.PositiveInfinity;
                 foreach (Board child in getChildrenOfState(board, playerChar))
                 {
-                    v = Math.Min(v, AlphaBeta(child, depth - 1, a, b, '2'));
+                    v = Math.Min(v, AlphaBeta(child, depth - 1, a, b, '1'));
                     b = Math.Min(b, v);
                     if (b <= a)
                     {
@@ -79,10 +79,10 @@ namespace Game
                 return v;
             }
         }
-        private int HeuristicValue(Board board, char playerChar)
+        private int scoreValue(Board board, char playerChar)
         {
             int score = 0;
-            if (playerChar == '2')
+            if (playerChar == '1')
             {
                 score = board.gameScore().Item1;
             }
@@ -97,10 +97,26 @@ namespace Game
             List<Board> children = new List<Board>();            //create list of all children states
             List<Tuple<int, int>> legalMoves = board.getLegalMoves(playerChar);            //get all the legal move for the given player
 
-            //iterate all the moves, for each move - create the state and add it to the list
+            //sort the moves by the heuristic function
+            Dictionary<Tuple<int, int>, int> DictionaryMoves = new Dictionary<Tuple<int, int>, int>();
             foreach (Tuple<int, int> move in legalMoves)
             {
-                Board child = getState(move, board, playerChar);
+                DictionaryMoves.Add(move, AreaCapturedHeuristic(move, board._n));
+
+            }
+            List<KeyValuePair<Tuple<int, int>, int>> sortedMoves = DictionaryMoves.ToList();
+
+            sortedMoves.Sort(
+                delegate (KeyValuePair<Tuple<int, int>, int> pair1,
+                KeyValuePair<Tuple<int, int>, int> pair2)
+                {
+                    return pair2.Value.CompareTo(pair1.Value);
+                }
+            );
+            //iterate all the moves, for each move - create the state and add it to the list
+            foreach (KeyValuePair<Tuple<int, int>, int> move in sortedMoves)
+            {
+                Board child = getState(move.Key, board, playerChar);
                 children.Add(child);
             }
             //return the list of all states.
@@ -111,6 +127,26 @@ namespace Game
             Board state = new Board(board);
             state.fillPlayerMove(playerChar, move.Item1, move.Item2);
             return state;
+        }
+        private int AreaCapturedHeuristic(Tuple<int, int> move, int n)
+        {
+            int row = move.Item1;
+            int col = move.Item2;
+
+            //the position is in the corners
+            if ((row == 0 && col == 0) || (row == n && col == 0) || (row == 0 && col == n) || (row == n && col == n))
+                return 5;
+            else if ((row >= 0 && row <= 1) && (col <= 1 && col >= 0) || (row >= n - 1 && row <= n) && (col >= n - 1 && col <= n))
+                return 1;
+            else if ((row == 0) || (col == 0) || (row == n) || (col == n))
+                return 4;
+            else if ((row == 1) || (col == 1) || (row == n - 1) || (col == n - 1))
+                return 2;
+            else return 3;
+        }
+        private int MobilityHeuristic(Board board, char playerChar)
+        {
+            return 0; // not implemented yet
         }
 
     }

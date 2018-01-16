@@ -70,8 +70,8 @@ namespace Game
             {
                 if (_printResults)
                 {
-                    board.printTheBoardGame();
-                    board.printTheBoardCosts();
+                  //  board.printTheBoardGame();
+                   // board.printTheBoardCosts();
                     printGameResults(board.gameScore());
                     Console.WriteLine("\nPlayer " + currentPlayerChar + " turn .. ");
                     //Console.ReadLine();

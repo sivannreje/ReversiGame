@@ -14,11 +14,11 @@ namespace Game
 
         static void Main(string[] args)
         {
-            Player player1      = new Player3();
+            Player player1      = new Player5();
             Player player2      = new Player1();
-            int numberOfGames   = 10;
-            int boardSize       = 10;  // must be even
-            int gameLevel       = 1;  // between 1 to 4
+            int numberOfGames   = 5;
+            int boardSize       = 30;  // must be even
+            int gameLevel       = 5;  // between 1 to 4
             bool toPrint        = true;
             GameController controller =
                 new GameController(numberOfGames, boardSize, gameLevel, toPrint, player1, player2);
